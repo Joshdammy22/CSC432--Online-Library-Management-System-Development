@@ -1,7 +1,4 @@
-# CSC432--Online-Library-Management-System-Development
-CSC432- Online Library Management System Development
-
-
+#CSC432
 # Group 3: Online Library Management System
 
 Welcome to the official GitHub repository for Group 3's CSC 432 seminar project at Lagos State University. Our project is an **Online Library Management System**, designed to enhance the efficiency and accessibility of library services. 
