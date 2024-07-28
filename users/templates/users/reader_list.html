@@ -1,0 +1,11 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>Reader List</h2>
+  <a href="{% url 'reader_add' %}">Add Reader</a>
+  <ul>
+    {% for reader in readers %}
+      <li>{{ reader.name }} - <a href="{% url 'reader_edit' reader.pk %}">Edit</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
