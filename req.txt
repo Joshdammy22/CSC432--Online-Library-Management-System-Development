@@ -1,0 +1,8 @@
+django
+djangorestframework
+psycopg2-binary
+celery
+redis
+django-allauth
+django-crispy-forms
+django-filter
