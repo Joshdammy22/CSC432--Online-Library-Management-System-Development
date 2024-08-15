@@ -9,11 +9,11 @@ def reader_manage(request):
         form = ReaderForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('reader_manage')
+            return redirect('reader_manage')  
     else:
         form = ReaderForm()
     
-    readers = Reader.objects.all()
+    readers = Reader.objects.all()  
     return render(request, 'users/reader_manage.html', {'form': form, 'readers': readers})
 
 @require_POST
