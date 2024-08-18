@@ -1,25 +1,58 @@
 {% extends 'base.html' %}
 
+{%load static%}
 {% block content %}
-<div class="container">
-    <h2>Books List</h2>
+<div class="container mt-5 py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h3 class="font-weight-bold text-center mb-4 text-white">Search for Books</h3>
 
-    <!-- Search Form -->
-    <form method="GET" action="{% url 'books' %}">
-        <input type="text" name="query" placeholder="Search for books">
-        <button type="submit">Search</button>
-    </form>
+            <!-- Search Form -->
+            <form method="GET" action="{% url 'books' %}" class="d-flex py-3 gap-3">
+                <input type="text" name="query" placeholder="Search" class="form-control form-control-lg" value="{{ request.GET.query|default:'' }}">
+                <button type="submit" class="btn btn-primary btn-lg">Search</button>
+            </form>
 
-    <ul>
-        {% for book in books %}
-            <li>
-                {{ book.title }} by {{ book.author }}
-                <form method="POST" action="{% url 'add_to_bag' book.pk %}">
-                    {% csrf_token %}
-                    <button type="submit">Add to Bag</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
+         
+            <!-- Books Available  -->
+            <p class="text-center text-white py-3 h5">
+                {% if books %}  
+                    {{ books|length }} Book(s) Available
+                {% else %}
+                    No book(s) found
+                {% endif %}
+            </p>
+
+            <!-- Books List -->
+            <div class="table-responsive mt-5">
+                <table class="table table-bordered text-center">
+                    <tbody>
+                        {% for book in books %}
+                            <tr>
+                                <td class="align-middle">
+                                <img src="{% static 'book-image.png' %}" alt="lasu-libr" class="img-fluid " />
+                           
+                                </td>
+                                <td class="align-middle">
+                                    <div class="text-white">
+                                        <h5 class="font-weight-bold">{{ book.title }}</h5>
+                                        <p class="mb-1">Author: {{ book.author }}</p>
+                                        <p>Published By: {{ book.publisher }}</p>
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <form method="POST" action="{% url 'add_to_bag' book.pk %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary">Add to Bag</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
 {% endblock %}

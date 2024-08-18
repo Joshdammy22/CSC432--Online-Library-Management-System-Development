@@ -1,12 +1,106 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>Checkout</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ checkout_form.as_p }}
-        <button type="submit" class="btn btn-primary">Checkout</button>
-    </form>
+<div class="container mt-5 py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 mx-auto">
+            <div class="bg-light border p-4 shadow-sm rounded">
+                <h2 class="text-center font-weight-bold mb-4">
+                    Ready for Checkout?
+                </h2>
+                <form method="post" action="{% url 'checkout' %}" class="needs-validation" novalidate>
+                    {% csrf_token %}
+
+                    <div class="bg-secondary p-3 rounded mb-4">
+                        <div class="form-group row">
+                            <label for="id" class="col-sm-4 col-form-label font-weight-bold">
+                                Reader ID:
+                            </label>
+                            <div class="col-sm-8 d-flex align-items-center">
+                                <input type="text" id="id" name="id" class="form-control mr-2" value="{{ readerId }}" required>
+                                <button type="button" class="btn btn-primary" onclick="handleReaderSubmit()">Go</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-4 col-form-label font-weight-bold">
+                                Name:
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" id="name" name="name" class="form-control" value="{{ formReader.name }}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="contact" class="col-sm-4 col-form-label font-weight-bold">
+                                Contact:
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" id="contact" name="contact" class="form-control" value="{{ formReader.contact }}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="referenceId" class="col-sm-4 col-form-label font-weight-bold">
+                                Reference ID:
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" id="referenceId" name="referenceId" class="form-control" value="{{ formReader.referenceId }}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="date" class="col-sm-4 col-form-label font-weight-bold">
+                                Start Date & Time:
+                            </label>
+                            <div class="col-sm-4">
+                                <input type="date" id="date" name="date" class="form-control" value="{{ currentDateTime.date }}" required>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="time" id="time" name="time" class="form-control" value="{{ currentDateTime.time }}" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="dueDate" class="col-sm-4 col-form-label font-weight-bold">
+                                Reader Due Date:
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="date" id="dueDate" name="dueDate" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Checkout Button -->
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Checkout</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Library Rules Section -->
+            <div class="py-4 font-weight-bold">
+                <ul class="list-unstyled">
+                    <li class="d-flex align-items-baseline mb-2">
+                        <span class="text-primary h3 mr-2">&#8226;</span>
+                        <span class="text-muted">Readers should not mark, underline, write, or tear pages or otherwise damage the library documents.</span>
+                    </li>
+                    <li class="d-flex align-items-baseline mb-2">
+                        <span class="text-primary h3 mr-2">&#8226;</span>
+                        <span class="text-muted">Readers are requested to handle all library property carefully to avoid damage and not disturb other readers/users.</span>
+                    </li>
+                    <li class="d-flex align-items-baseline mb-2">
+                        <span class="text-primary h3 mr-2">&#8226;</span>
+                        <span class="text-muted">No library material can be taken out without the librarian’s permission.</span>
+                    </li>
+                    <li class="d-flex align-items-baseline mb-2">
+                        <span class="text-primary h3 mr-2">&#8226;</span>
+                        <span class="text-muted">Four books are issued for a maximum of two weeks and must be returned on or before the due date specified above.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
+
 {% endblock %}

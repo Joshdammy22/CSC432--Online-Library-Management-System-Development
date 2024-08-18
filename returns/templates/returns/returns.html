@@ -1,32 +1,85 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>Return Books</h2>
-    
-    <!-- Search bar -->
-    <form method="GET" action="{% url 'returns' %}">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" name="search" placeholder="Search for readers" aria-label="Search for readers" aria-describedby="search-button">
-            <button class="btn btn-outline-secondary" type="submit" id="search-button">Search</button>
+<div class="container mt-5 py-5">
+    <div class="d-flex flex-column flex-md-row align-items-start justify-content-center w-100 max-w-1400 gap-4 mx-auto">
+        <div class="w-100 md-w-95">
+            <h3 class="font-weight-bold display-4 text-center mb-4 text-white">Search Readers</h3>
+
+            <form method="GET" action="{% url 'returns' %}">
+                <div class="input-group mb-4">
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        name="search" 
+                        placeholder="Search for readers" 
+                        aria-label="Search for readers" 
+                        aria-describedby="search-button"
+                        {% if not filteredBooks or filteredBooks|length == 0 %} disabled {% endif %}
+                    >
+                    <button 
+                        type="submit" 
+                        class="btn btn-outline-primary" 
+                        id="search-button"
+                        {% if not filteredBooks or filteredBooks|length == 0 %} disabled {% endif %}
+                    >
+                        Search
+                    </button>
+                </div>
+            </form>
+
+            <div class="w-100 text-white">
+                <p class="text-center h4">
+                    {% if filteredBooks and filteredBooks|length > 0 %}
+                        {{ filteredBooks|length }} Rental Found
+                    {% else %}
+                        No Returns Found
+                    {% endif %}
+                </p>
+
+                <div class="d-flex justify-content-center">
+                    {% if filteredBooks and filteredBooks|length > 0 %}
+                        <table class="table table-hover bg-white rounded-lg overflow-hidden">
+                            <thead>
+                                <tr class="border-bottom">
+                                    <th class="text-left px-4 py-2">Reader ID</th>
+                                    <th class="text-left px-4 py-2">Name</th>
+                                    <th class="text-left px-4 py-2">Book</th>
+                                    <th class="text-left px-4 py-2">Reference ID</th>
+                                    <th class="text-left px-4 py-2">Start Date & Time</th>
+                                    <th class="text-left px-4 py-2">Reader Due Date</th>
+                                    <th class="text-left px-4 py-2">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for book in filteredBooks %}
+                                    <tr class="border-bottom">
+                                        <td class="px-4 py-2">{{ reader.id }}</td>
+                                        <td class="px-4 py-2">{{ reader.name }}</td>
+                                        <td class="px-4 py-2">
+                                            <div class="d-flex flex-column">
+                                                <span>Name Of Book: {{ book.title }}</span>
+                                                <span>Written By: {{ book.author }}</span>
+                                                <span>Published By, Date: {{ book.publisher }}</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-2">{{ reader.reference_id }}</td>
+                                        <td class="px-4 py-2">{{ currentDateTime.date }} {{ currentDateTime.time }}</td>
+                                        <td class="px-4 py-2">{{ book.due_date }}</td>
+                                        <td class="px-4 py-2">
+                                            <button class="btn btn-primary text-white">Return</button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="text-center py-4">No returns found</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-    </form>
-    
-    <!-- List of readers who have borrowed books -->
-    <h3>Readers with Borrowed Books</h3>
-    <ul class="list-group">
-        {% for reader in readers %}
-        <li class="list-group-item">
-            <strong>{{ reader.name }}</strong> ({{ reader.reference_id }})<br>
-            Phone: {{ reader.phone_number }}<br>
-            Address: {{ reader.address }}
-            <ul class="mt-2">
-                {% for book in reader.books.all %}
-                <li>{{ book.title }} by {{ book.author }}</li>
-                {% endfor %}
-            </ul>
-        </li>
-        {% endfor %}
-    </ul>
+    </div>
 </div>
+
 {% endblock %}

@@ -1,34 +1,21 @@
 {% extends 'base.html' %}
 
+{% load static %} 
 {% block content %}
-<div style="display: flex;">
-    <!-- Form section -->
-    <div style="flex: 1; margin-right: 20px;">
-        <h2>{% if form.instance.pk %}Edit Reader{% else %}Add Reader{% endif %}</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Save</button>
-        </form>
-    </div>
-
-    <!-- List section -->
-<div style="flex: 2;">
-    <h2>Reader List</h2>
-    <ul>
-        {% for reader in readers %}
-            <li>
-                {{ reader.name }} - {{ reader.phone_number }} - {{ reader.reference_id }} - {{ reader.address }}
-                - <a href="{% url 'reader_edit' reader.pk %}">Edit</a>
-                <form method="post" action="{% url 'toggle_active' reader.pk %}">
-                    {% csrf_token %}
-                    <input type="checkbox" name="is_active" {% if reader.is_active %}checked{% endif %} 
-                           onchange="this.form.submit();">
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
-
-</div>
+<div class="container mt-5"><div class="row text-light"><div class="col-md-4"><h2 class="mb-4">
+                {% if form.instance.pk %}
+                    Edit Reader  
+                {% else %} 
+                    Register New Reader
+                {% endif %}  
+            </h2>
+            <form method="post" class="bg-dark border border-light p-4 rounded shadow-sm">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary border border-primary w-100 mt-3">Save</button></form><div class="mt-5"><h5 class="text-center font-weight-bold">Important Notes:</h5><ul class="list-group list-group-flush text-dark"><li class="list-group-item text-dark">Readers should not register multiple times.</li><li class="list-group-item">Duplicate reader registrations will be deactivated.</li><li class="list-group-item">Contact information provided above must be correct and subject to verification.</li></ul></div></div><!-- List section --><div class="col-md-8"><h2 class="mb-4 text-center">Reader List</h2><input type="text" class="form-control mb-4" placeholder="Search Readers"><div class="table-responsive">
+                <table class="table text-white table-striped table-hover"><thead class="text-white"><tr><th>Readers ID</th><th class="">Name</th><th>Contact</th><th>Reference ID</th><th>Address</th></tr></thead><tbody>
+                        {% for reader in readers %}
+                        <tr><td>{{ reader.id }}</td><td>{{ reader.name }}</td><td>{{ reader.phone_number }}</td><td>{{ reader.reference_id }}</td><td>{{ reader.address }}</td></tr>
+                        {% endfor %}
+                    </tbody></table></div></div></div></div>
 {% endblock %}

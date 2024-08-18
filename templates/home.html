@@ -2,9 +2,67 @@
 
 
 {% block title %} Home {% endblock title %}
-
+   
+   
+ {% load static %}
 {% block content %}
-    <h1>Home</h1>
+
+<div class="bg-dark">
+  <div class="d-flex align-items-center justify-content-center mt-5 pt-5">
+    <img src="{% static 'libraryImg.png' %}" alt="lasu-libr" class="img-fluid w-25" />
+
+    <div class="text-center ml-4">
+      <h1 class="font-weight-bold display-4 m-0 text-light" >Welcome to LASU Library</h1>
+      <h3 class="font-weight-bold text-primary mb-3">Dive, Explore and Enjoy a World of Knowledge</h3>
+      <p class="font-weight-bold  text-light">
+        At LASU Library, we believe in the power of books to educate, inspire, and transform.
+        <br />
+        Our mission is to provide easy access to a world of knowledge and  <br /> entertainment for readers of all ages.
+      </p>
+    </div>
+  </div>
+
+  <div class="container py-4 my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="shadow-sm p-4 rounded bg-light h-100" style="position: relative;">
+          <div class="rounded-circle" style="width: 48px; height: 48px; background-color: #FF5733; position: absolute; top: -24px;"></div>
+          <h5 class="font-weight-bold mt-4">OUR READERS</h5>
+          <p>Join us in celebrating the joy of reading and building a community of passionate readers.</p>
+          <a href="/readers" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="shadow-sm p-4 rounded bg-light h-100" style="position: relative;">
+          <div class="rounded-circle" style="width: 48px; height: 48px; background-color: #33C3FF; position: absolute; top: -24px;"></div>
+          <h5 class="font-weight-bold mt-4">BOOKS</h5>
+          <p>Browse our collection of books, discover new arrivals, and find the perfect read.</p> 
+          <a href="/books/books" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="shadow-sm p-4 rounded bg-light h-100" style="position: relative;">
+          <div class="rounded-circle" style="width: 48px; height: 48px; background-color: #75FF33; position: absolute; top: -24px;"></div>
+          <h5 class="font-weight-bold mt-4">MY BAG</h5>
+          <p>Manage the books you’ve selected, check out with ease, and keep track of your personalized reading list.</p>
+          <a href="/mybag/" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="shadow-sm p-4 rounded bg-light h-100" style="position: relative;">
+          <div class="rounded-circle" style="width: 48px; height: 48px; background-color: #FF33A6; position: absolute; top: -24px;"></div>
+          <h5 class="font-weight-bold mt-4">RETURNS</h5>
+          <p>Effortlessly return borrowed books, and stay on top of due dates with timely reminders.</p>
+          <a href="/returns/returns" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
     
     
     
